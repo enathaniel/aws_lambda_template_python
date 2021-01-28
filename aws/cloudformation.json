@@ -1,0 +1,43 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+    "LambdaRole": {
+      "Type": "String",
+      "Default": "",
+      "Description": "AWS IAM role in ARN or alias format"
+    },
+    "LambdaS3Key": {
+      "Type": "String",
+      "Default": "",
+      "Description": "S3 Key of the lambda.zip file"
+    },
+    "LambdaS3Bucket": {
+      "Type": "String",
+      "Default": "",
+      "Description": "S3 Bucket of the lambda.zip file"
+    }
+  },
+  "Resources": {
+    "ResourcesLambda": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "",
+        "Handler": "handler.handler",
+        "Role": {
+          "Ref": "ParamLambdaRole"
+        },
+        "Code": {
+          "S3Bucket": {
+            "Ref": "LambdaS3Bucket"
+          },
+          "S3Key": {
+            "Ref": "LambdaS3Key"
+          }
+        },
+        "MemorySize": 128,
+        "Runtime": "python3.7",
+        "Timeout": 300
+      }
+    }
+  }
+}
